@@ -1,0 +1,85 @@
+:root {
+  /* Brand */
+  --c-blue-950: #0e2747;
+  --c-blue-900: #13315c;
+  --c-blue-800: #145cb0;
+  --c-blue-700: #1a72d6;
+  --c-blue-600: #1f7ee0;
+  --c-emerald-600: #16a34a; /* kept for "available" / success states only */
+  --c-emerald-500: #22c55e;
+  --c-sky-25: #f7fbff;
+  --c-sky-50: #eef6fe;
+  --c-sky-100: #e0eefc;
+  --c-sky-200: #c4defa;
+
+  /* Neutrals */
+  --c-bg: #eef5fc; /* soft sky blue, matches the login photo backdrop */
+  --c-page: #f5f9fd;
+  --c-surface: #ffffff;
+  --c-surface-muted: #f3f7fc;
+  --c-border: #e1e9f3;
+  --c-border-strong: #cdd9e7;
+  --c-text: #13233a;
+  --c-text-muted: #51617a;
+  --c-text-subtle: #78879c;
+
+  /* Feedback / status */
+  --c-success: #157a3c;
+  --c-success-bg: #e8f8ee;
+  --c-success-border: #b5e6c7;
+  --c-info: #1e4fb8;
+  --c-info-bg: #ebf2ff;
+  --c-info-border: #c3d6fb;
+  --c-warning: #a24b07;
+  --c-warning-bg: #fff3e4;
+  --c-warning-border: #fbd3a3;
+  --c-danger: #b42318;
+  --c-danger-bg: #fef0ef;
+  --c-danger-border: #f8c5c0;
+  --c-neutral: #4b5563;
+  --c-neutral-bg: #f1f3f5;
+  --c-neutral-border: #d9dee3;
+
+  /* Shape & depth */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+  --shadow-xs: 0 1px 2px rgba(19, 49, 92, 0.04);
+  --shadow-sm: 0 1px 3px rgba(19, 49, 92, 0.06), 0 1px 2px rgba(19, 49, 92, 0.03);
+  --shadow-md: 0 8px 24px -10px rgba(19, 49, 92, 0.16);
+  --shadow-lg: 0 24px 48px -16px rgba(19, 49, 92, 0.24);
+
+  /* Spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+
+  /* Type */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-script: 'Caveat', 'Segoe Script', cursive;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-md: 0.9375rem;
+  --fs-lg: 1.0625rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: 1.625rem;
+  --fs-3xl: 2rem;
+  --fs-4xl: 2.75rem;
+
+  --container: 1240px;
+  --header-h: 64px;
+  --focus-ring: 0 0 0 3px rgba(31, 126, 224, 0.3);
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --t-fast: 140ms var(--ease);
+  --t-med: 220ms var(--ease);
+}
