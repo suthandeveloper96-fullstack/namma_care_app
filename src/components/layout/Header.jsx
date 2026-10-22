@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ChevronDown, LogIn, LogOut, Menu, ShoppingBag, UserRound, X } from 'lucide-react';
@@ -40,7 +41,13 @@ function AccountMenu({ phone, onLogout }) {
 
   return (
     <div className="account-menu" onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setOpen(false)}>
-      <button type="button" className="site-nav__link account-menu__trigger" aria-expanded={open} aria-haspopup="true" onClick={() => setOpen((o) => !o)}>
+      <button
+        type="button"
+        className="site-nav__link account-menu__trigger"
+        aria-expanded={open}
+        aria-haspopup="true"
+        onClick={() => setOpen((o) => !o)}
+      >
         My Account <ChevronDown size={15} aria-hidden="true" />
       </button>
       {open && (
@@ -83,7 +90,13 @@ export default function Header() {
     if (!drawerOpen) return undefined;
     const onKey = (e) => e.key === 'Escape' && setDrawerOpen(false);
     document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    // Keep the page behind the open menu from scrolling.
+    const { overflow } = document.body.style;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = overflow;
+    };
   }, [drawerOpen]);
 
   return (
@@ -118,40 +131,49 @@ export default function Header() {
               Login
             </Link>
           )}
-          <button type="button" className="icon-btn menu-btn" onClick={() => setDrawerOpen(true)} aria-label="Open menu" aria-expanded={drawerOpen}>
+          <button
+            type="button"
+            className="icon-btn menu-btn"
+            onClick={() => setDrawerOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={drawerOpen}
+          >
             <Menu aria-hidden="true" />
           </button>
         </div>
       </div>
 
-      {drawerOpen && (
-        <>
-          <div className="drawer-backdrop" onClick={() => setDrawerOpen(false)} aria-hidden="true" />
-          <div className="drawer" role="dialog" aria-modal="true" aria-label="Menu">
-            <div className="cluster cluster--between">
-              <Logo />
-              <button type="button" className="icon-btn" onClick={() => setDrawerOpen(false)} aria-label="Close menu" autoFocus>
-                <X aria-hidden="true" />
-              </button>
+      {/* Portalled to <body>: the header's backdrop-filter would otherwise clip the fixed drawer to the header's height. */}
+      {drawerOpen &&
+        createPortal(
+          <>
+            <div className="drawer-backdrop" onClick={() => setDrawerOpen(false)} aria-hidden="true" />
+            <div className="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+              <div className="cluster cluster--between">
+                <Logo />
+                <button type="button" className="icon-btn" onClick={() => setDrawerOpen(false)} aria-label="Close menu" autoFocus>
+                  <X aria-hidden="true" />
+                </button>
+              </div>
+              <LocationSelector />
+              <DrawerLinks title="Explore" items={PRIMARY_NAV} />
+              <DrawerLinks title="My account" items={ACCOUNT_NAV} />
+              <DrawerLinks title="Demo dashboards" items={DASHBOARD_NAV} />
+              {phone ? (
+                <button type="button" className="btn btn--outline" onClick={logout}>
+                  <LogOut size={16} aria-hidden="true" />
+                  Logout (+91 {maskPhone(phone)})
+                </button>
+              ) : (
+                <Link to="/login" className="btn btn--primary">
+                  <LogIn size={16} aria-hidden="true" />
+                  Login
+                </Link>
+              )}
             </div>
-            <LocationSelector />
-            <DrawerLinks title="Explore" items={PRIMARY_NAV} />
-            <DrawerLinks title="My account" items={ACCOUNT_NAV} />
-            <DrawerLinks title="Demo dashboards" items={DASHBOARD_NAV} />
-            {phone ? (
-              <button type="button" className="btn btn--outline" onClick={logout}>
-                <LogOut size={16} aria-hidden="true" />
-                Logout (+91 {maskPhone(phone)})
-              </button>
-            ) : (
-              <Link to="/login" className="btn btn--primary">
-                <LogIn size={16} aria-hidden="true" />
-                Login
-              </Link>
-            )}
-          </div>
-        </>
-      )}
+          </>,
+          document.body,
+        )}
     </header>
   );
 }

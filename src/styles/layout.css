@@ -111,15 +111,26 @@
   background: #fff;
   box-shadow: var(--shadow-lg);
   overflow-y: auto;
+  overscroll-behavior: contain;
   animation: slideIn 220ms var(--ease);
 }
 @keyframes slideIn { from { transform: translateX(24px); opacity: 0; } }
+.drawer > * { flex-shrink: 0; }
 .drawer__nav { display: flex; flex-direction: column; gap: 2px; }
 .drawer__nav a { display: flex; align-items: center; gap: var(--s-3); padding: 10px 12px; border-radius: var(--radius-sm); color: var(--c-text); font-weight: 500; font-size: var(--fs-sm); }
 .drawer__nav a svg { width: 18px; height: 18px; color: var(--c-blue-700); }
 .drawer__nav a:hover { background: var(--c-sky-50); text-decoration: none; }
 .drawer__nav a.active { background: var(--c-sky-100); color: var(--c-blue-800); font-weight: 600; }
 .drawer__label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-text-subtle); padding: 0 12px; margin-top: var(--s-2); }
+
+/* Short phones: tighter spacing and two-column links so the whole menu fits without scrolling. */
+@media (max-height: 780px) {
+  .drawer { gap: var(--s-2); padding: var(--s-4); }
+  .drawer__nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 4px; }
+  .drawer__nav a { padding: 8px; gap: 8px; font-size: 0.8rem; line-height: 1.25; }
+  .drawer__nav a svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .drawer__label { margin-top: var(--s-1); }
+}
 
 /* Bottom tab bar (mobile) */
 .tabbar { display: none; }
